@@ -2,7 +2,7 @@
 
 ## Introduction
 
-**Business Case**  The business care here is a bit different than previous projects.  Rather than focusing solely on an in depth analysis of the data in order to answer a question, my goal is to create a data tool and incorporate the analysis into that. Specifically, I would like to create an interface that provides a wealth of information about stock market prices.  It should be simple to use and provide a high level of interactivity.  As this is a data science project, there will also be an emphasis on machine learning and how it could be used to predict future prices.  Additionally, there were two specific topics I wanted to examine and visualize, these were yield rates and economic sectors.
+**Business Case**  The business care here is a bit different than previous projects.  Rather than focusing solely on an in depth analysis of the data in order to answer a specific question, my goal is to create a data tool and incorporate the analysis into that. Specifically, I would like to create an interface that provides a wealth of information about stock market prices.  It should be simple to use and provide a high level of interactivity.  As this is a data science project, there will also be an emphasis on machine learning and how it could be used to predict future prices.  Additionally, there were two specific topics I wanted to examine and visualize, these were yield rates and economic sectors.
 
 
 
