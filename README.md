@@ -1,88 +1,61 @@
-# Capstone Project Requirements
+# Capstone Project 
 
 ## Introduction
 
-In this lesson, we'll discuss the requirements for our **Capstone Project**!
+**Business Case**  The business care here is a bit different than previous projects.  Rather than focusing solely on an in depth analysis of the data in order to answer a question, my goal is to create a data tool and incorporate the analysis into that. Specifically, I would like to create an interface that provides a wealth of information about stock market prices.  It should be simple to use and provide a high level of interactivity.  As this is a data science project, there will also be an emphasis on machine learning and how it could be used to predict future prices.  Additionally, there were two specific topics I wanted to examine and visualize, these were yield rates and economic sectors.
 
-## Objectives
 
-You will be able to:
 
-* Describe all required aspects of the final project
-* Describe what constitutes a successful project
+## Table of Contents
 
-## Introduction
+- presentation.pdf - a pdf file containing the powerpoint slides
+- student.ipynb - Jupyter Notebook containing notated code
+- README.md - this file, serving as a directory
+- yield2020.tsv - .tsv file containing US Treasury yield data (2020)
+- yield2019.tsv - .tsv file containing US Treasury yield data (2019)
+- midcap_data.csv - main dataset exported from notebook
+- nasdaq_list.csv - dataset containing the NASDAQ stock symbols
+- nyse_list.csv - dataset containing the NYSE stock symbols
+- charts - a folder containing all of the charts generated 
 
-Congratulations on making it to the final project! It's been a long journey, but we can finally see the light at the end of the tunnel!
+## The Datasets
 
-![Actual Footage of you seeing the light at the end of the tunnel](/end-of-tunnel.gif)
+There were a few datasets used here, so I will briefly describe them and where they came from. To start with there were two datasets from the main US stock exchanges, nasdaq_list and nyse_list.  These were categorical, containing stock names and symbols along with some other information about the stocks such as their sector and market capitalization.  These were then combined to form a list of every stock that I wanted to include in the analysis.  The primary dataset used throughout the analysis was called midcap_data, however this was exported from my Jupyter Notebook. It is a time series containing one year of historical stock prices, most importantly including the high, low, open and closing prices for each day.  It was gathered by scraping Yahoo Finance historical data off of the web using the list of stock symbols from the previous datasets as a reference.  The two yield datasets contain daily yield values published by the US Treasury.
 
-Now that you've learned everything we have to teach you, it's time to show off and flex your data science muscles with your own **_Capstone Project_**! This project will allow you to showcase everything you've learned as a data scientist to by completing a professional-level data science project of your choosing. This project will be significantly larger than any project you've completed so far, and will be the crown jewel of your portfolio. A strong capstone project is the single most important thing you can do to get the attention of potential employers, so be prepared to put as much effort into this project as possible - the results will be **_worth it!_**
+## Data Cleaning / Feature Engineering
 
-![Your portfolio brings all the employers to your inbox](/milkshake.gif)
+There was a fairly intensive amount of data cleaning to be done here.  As mentioned, the first step was combining the two stock exchange datasets so that I could use the resulting list to scrape the web.  Once the price data had been pulled from the web I added some columns from the stock exchange list such as sector and market cap to the resulting dataframe as I wanted to include sectors in my analysis.  Market cap was used to thin out the number of stocks so that computation time could be cut down significantly.  I did this by filtering out any stock smaller than what is generally considered "mid-cap" which means any that had a market cap of less than two billion dollars.  I then indexed the data using multi-level indexing, so that each index was composed of a stock symbol and a date.  I also eliminated any stocks that began trading within the past year.  Since I was already working with a somewhat small timeframe, examining anything shorter would have only complicated the analysis for no real benefit. I then moved on to some simple feature engineering for this dataset. I added a column for a one week moving average in order to check for short term trends more easily, as well as one to show the percentage change over the previous day.  Finally, I added one last column to show the difference between the high and low prices for the day so that I would have an interesting measure of volatility.  I then created a dataframe that was similar to this one, but instead of individual stocks it contained average values for each sector.  I also added a column to represent a sector composite value.  
 
-## Topic Requirements
+Moving on the the final datasets which contained yield data, I started by simply combining the two separate year files into a single dataframe.  I then removed any dates that fell outside the timeframe I was examining.  Next, I added two columns representing different 'spreads' which are values used in the field of finance.  This is just the difference between yield values for two different times to maturity, and it is generally used as an easy benchmark to measure the steepness of the yield curve.  In this case I used the two year versus ten year spread as well as the five year versus thirty year spread since those are among the most common measurements.  For my last data cleaning task, I created a custom frequency to use for the date values since the stock market is not open every day, and I wanted to account for holidays as well. 
 
-Your project should develop a data product or analysis related to a single topic. You are completely free to choose any topic that interests you, but keep in mind that you will need to complete this project end-to-end, including sourcing your own data. When choosing a topic, think through these questions:  
+## The Modeling
 
-* What would I be motivated to work on?
-* What data could I use?
-* How could an individual or organization use my product or findings?
-* What will I be able to accomplish in the time I have available?
-* What challenges do I foresee with this project?
+I tried two different modeling approaches for this data, as I was interested in whether one might perform better than the other.  The first model was an autoregressive integrated moving average (ARIMA).  For this model, I decided that rather than tuning ARIMA parameters for each individual stock, I would optimize parameters based on each sector index I had created and then apply those parameters to all stocks within that sector.  I had two main reasons for this choice.  First, it saved a great deal of computation time, and since stocks tend to follow the general trends of their sectors I was likely not losing much accuracy in exchange.  Second, single stocks tend to be subject to much more unpredictable 'noise' in the data, while a sector average will smooth out that type of issue.  I also opted to try a new method for parameter selection.  Rather than run a grid search I used the pmdarima module, which contains a helpful function called auto_arima.  This function runs some initial tests to determine the order of differencing (the 'd' parameter), and then uses stepwise selection to determine the remaining parameters.  It also allowed me to select which criterion I would like it to use to select the best model.  In this case I went with the Akaike information criterion (AIC) as it protects against both overfitting and underfitting.  Once I had the optimal parameters for each sector, I fit each stock to its corresponding model.  
 
-## Technical Requirements
+For the second modeling technique I went with a neural network, specifically long short-term memory (LSTM).  LSTM is useful here because unlike many other neural networks it has feedback connections, so it is able to remember values.  This means it is ideal when making predictions based on time series data.   
 
-Your project must meet the following technical requirements:
+## Visualization Techniques
 
-1. **_No Off-The-Shelf Datasets_**. This project is a chance for you to highlight your critical thinking and data sourcing skills by finding a good dataset to answer a useful question. You _can_ use a pre-existing dataset, but you should consider combining it with other datasets and/or engineering your own features. The goal is to showcase your ability to find and work with data, so just grabbing a squeaky-clean dataset is out of the question.
+Since the main purpose behind this particular project was the interface itself, the visualizations were very important.  In order to make the graphs feel more interactive I opted to use the Plotly graphing library.  This allowed me to create graphs with engaging features like data values that pop up when you hover over them with the mouse, as well as date range sliders.  Another interesting aspect of Python that I was able to try out was widgets.  These allowed me to put selection menus above the graph, allowing them to be updated simply by clicking a drop-down box and making a new selection.  One drop-down menu even allows the user to switch between the different graphs.  It also allows for selections to be dependent on others, for example if the user chooses 'Technology' as the sector, it will return only technology stocks to select from in the next box.
 
-2. **_Strong Data Exploration, with at least 4 relevant data visualizations._**  There are few skills that impress employers more than the ability to dive into a new dataset and produce engaging visualizations that communicate important information. For this project, anything worth knowing is worth visualizing. Level up your project by digging into more advanced visualization libraries like seaborn!
+## Results - The Interface
 
-3. **_Makes use of Supervised Learning_**. It is great to use **_Unsupervised Learning_** techniques as needed in your project (for instance, segmentation with clustering algorithms), but supervised learning should play a central role in answering your question. 
+For a complete look at the final interface, it can be found at the bottom of the Jupyter Notebook.  Some images will be included here along with brief descriptions of the graphs and their purposes. 
 
-4. **_Explicitly makes use of a Data Science Process such as OSEMN or CRISP-DM_**. Select a Data Science Process to use to give structure to your project. Each step in the process should correspond to a section in your Jupyter Notebook.  
+1. Stock vs. Sector - On this graph you choose a sector, and the stocks associated with that sector can be chosen as well.  The stock value and sector index value are plotted, along with their 5-day predictions and confidence intervals. The sector value is scaled so that it has the same starting value as the stock.  There is a slider on the bottom to adjust the date range you would like to view.  Can be used to easily gauge whether a stock is outperforming its sector, as well as to see a 5-day prediction.  
+2. Stock vs. Sector w/ Table - Same as above, but also returns a table showing the predicted percent change in value for both the sector index and stock. 
+3. LSTM Forecasts - Plots the actual test value as well as the predicted value of selected stocks using LSTM.  It also returns the root mean squared error.  Can be compared to the One Step Ahead to see which model is more accurate with its predictions.
+4. Compare Sectors - This graph shows the performance of each sector over the past year, with each index starting at 100.  Hovering over it makes all of the names appear from highest to lowest at that particular date. Easy to see which sectors are performing well and which ones are not.  
+5. One Step Ahead Forecast - Plots the selected stock, along with its one step ahead prediction and confidence interval. Can be compared to the LSTM to give an idea of which model makes the better predictions.  
+6. Yield vs. Stock Value - Plots the stock of your choice along with your choice of yield curve.  Makes it easy to see any potential relationships between stocks and yield spreads.  Also has a date slider at the bottom.  
+7. Yield vs. Sector Value - Plots the sector index of your choice along with your choice of yield curve.  Makes it easy to see any potential relationships between sector averages and yield spreads.
 
-5. **_A well-defined goal with clearly presented results._** Your project should provide any background context needed to understand the project you are working on and why it's important. For instance, if you are trying to detect fault lines using Earthquake data, you should review the topic and your dataset so that the reader can understand your work.  Similarly, the results of your project should be clearly communicated. Do not just tell your audience the final accuracy of your models--be sure to answer "big picture" questions as well. For instance: Would you recommend shipping this model to production, or is more work needed? 
+## Future Work
 
-**_NOTE:_** Inconclusive results are okay--from a purely scientific perspective, they are no more or less important or valuable than any other kinds of results. If your results are inconclusive, you should discuss what your next steps would be from there. For instance, what do you think it would take to get conclusive results--more data? Different data that was unavailable? Both? 
 
-## Requirements for Online Students Only
+## Citation
 
-### Deliverables
-
-For online students, the deliverables for this project consist of the following three components:
-
-1. A Jupyter notebook for a presentation.
-  * The Jupyter notebook will have two components:
-    1. An **_Abstract_** section that briefly explains your problem, your methodology, and your findings, and business recommendations as a result of your findings. This section should be 1-2 paragraphs long.  
-    2. The technical analysis for a data science audience. This detailed technical analysis should explicitly follow a Data Science Process as outlined in the previous section. It should be well-formatted and organized, and should contain all code, visualizations, and detailed explanations/analysis.
-    
-2. An organized **README.md** file in the GitHub repository containing your project code that describes the contents of the repository. This file should be the source of information for navigating through all the code in your repository. 
-    
-3. A blog post showcasing your project, with a focus on your methodology and findings. A well-written blog post about your project will probably be the first thing most recruiters and hiring managers see, so really take the time to polish up this blog post and explain your project, methodology, and findings/business recommendations in a clear, concise manner. This blog post should cover everything important about your project, but remember that your audience for this blog post will largely be non-technical. Your blog post should definitely contain visualizations, code snippets, and anything else you find important, but don't get bogged down trying to explain highly technical concepts. Your blog post should provide a link to the Github repository containing your actual project, for people that want to really dive into the technical aspects of your project.
-* Refer back to the [Blogging Guidelines](https://github.com/learn-co-curriculum/dsc-welcome-blogging) for the technical requirements and blog ideas.
-
-### Rubric 
-
-Online students can find a PDF of the rubric for the final capstone project [here](/online_capstone_project_rubric.pdf). 
-
-## Requirements for On-Campus Students Only
-
-For on-campus students, your project will be evaluated based on the contents of your GitHub repo, which must contain the following three components:
-
-1. A Jupyter notebook     
-2. An **README.md** file 
-3. Presentation slides
-
-The requirements for these components are described in detail in the rubric for the final capstone project [here](https://docs.google.com/spreadsheets/d/1YUC5_QVu8BEd7xBJumzspH40-KuJtL9KQInQYXGi5bE/edit?usp=sharing). You can learn how your teacher will use the rubric to review the project [here](https://github.com/learn-co-curriculum/dsc-campus-capstone-project-review).
-
-## Example Student Project
-
-Take a look at this [technical report](https://github.com/paulinaczheng/twitter_flu_tracking) from a Flatiron student that used tweet data to predict the weekly number of flu cases during flu season. Pay attention to how well structured the project is, and how much she relies on great visualizations to tell her story for her. Your explanations don't have to be wordy - a visualization is worth a thousand words!
-
-## Summary
-
-The Capstone Project is the most critical part of the program. It gives you a chance to bring together all the skills you've learned into realistic projects and to practice key "business judgement" and communication skills.  Most importantly, it provides employers with strong signal about your technical abilities, and allow you to show the world what an amazing Data Scientist you've become!
-
-The projects are serious and important - they can be passed and they can be failed. Take the project seriously, put the time in, ask for help from your peers or instructors early and often if you need it, and treat the review as a job interview and you'll do great. We're rooting for you to succeed and we're only going to ask you to take a review again if we believe that you need to. We'll also provide open and honest feedback so you can improve as quickly and efficiently as possible.
+1. https://finance.yahoo.com/
+2. https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yield
+3. https://old.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=nyse&render=download
+4. https://old.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=nasdaq&render=download
