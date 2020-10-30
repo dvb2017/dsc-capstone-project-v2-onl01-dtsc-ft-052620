@@ -59,6 +59,7 @@ For a complete look at the final interface, it can be found at the bottom of the
 
 ## Future Work
 
+In terms of future work, there is still a lot that can be done here.  The interface has a good amount of functionality right now, but there are still plenty of additional plots and options that could be added.  A simple one that I am already planning to add later would be a chart comparing the average root mean squared error across all stocks between the LSTM and ARIMA models, that way there is an even simpler way to compare them.  Another addition I would like to make is to have the full list of stocks as well as sector indices available to graph on the LSTM model (unfortunately this one took a very long time to run).  I also wouldn't mind double checking the auto_arima parameters with a grid search just to make sure they are optimized.  Another idea would be to run auto_arima for each individual stock, and then compare the results against when they were modeled by sector to see which option makes better predictions.  I think that the LSTM model could also be tuned better, and I also want to try running it using a yield spread as a feature.  
 
 ## Citation
 
