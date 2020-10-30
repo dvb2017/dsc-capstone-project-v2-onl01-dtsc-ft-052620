@@ -11,12 +11,13 @@
 - presentation.pdf - a pdf file containing the powerpoint slides
 - student.ipynb - Jupyter Notebook containing notated code
 - README.md - this file, serving as a directory
+- charts - a folder containing all of the charts generated
+- data - folder containing the following data
 - yield2020.tsv - .tsv file containing US Treasury yield data (2020)
 - yield2019.tsv - .tsv file containing US Treasury yield data (2019)
 - midcap_data.csv - main dataset exported from notebook
 - nasdaq_list.csv - dataset containing the NASDAQ stock symbols
-- nyse_list.csv - dataset containing the NYSE stock symbols
-- charts - a folder containing all of the charts generated 
+- nyse_list.csv - dataset containing the NYSE stock symbols 
 
 ## The Datasets
 
