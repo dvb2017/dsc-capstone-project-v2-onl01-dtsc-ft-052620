@@ -43,19 +43,19 @@ Since the main purpose behind this particular project was the interface itself, 
 For a complete look at the final interface, it can be found at the bottom of the Jupyter Notebook.  Some images will be included here along with brief descriptions of the graphs and their purposes. 
 
 1. Stock vs. Sector - On this graph you choose a sector, and the stocks associated with that sector can be chosen as well.  The stock value and sector index value are plotted, along with their 5-day predictions and confidence intervals. The sector value is scaled so that it has the same starting value as the stock.  There is a slider on the bottom to adjust the date range you would like to view.  Can be used to easily gauge whether a stock is outperforming its sector, as well as to see a 5-day prediction. 
-![Actual Footage of you seeing the light at the end of the tunnel](https://raw.githubusercontent.com/learn-co-curriculum/dsc-capstone-project-v2/master/end-of-tunnel.gif)
+![stockvsector](https://github.com/dvb2017/dsc-capstone-project-v2-onl01-dtsc-ft-052620/blob/master/charts/stockvsector.PNG)
 2. Stock vs. Sector w/ Table - Same as above, but also returns a table showing the predicted percent change in value for both the sector index and stock. 
-![Actual Footage of you seeing the light at the end of the tunnel](https://raw.githubusercontent.com/learn-co-curriculum/dsc-capstone-project-v2/master/end-of-tunnel.gif)
+![stockvsectortable](https://github.com/dvb2017/dsc-capstone-project-v2-onl01-dtsc-ft-052620/blob/master/charts/stockvsector_table.PNG)
 3. LSTM Forecasts - Plots the actual test value as well as the predicted value of selected stocks using LSTM.  It also returns the root mean squared error.  Can be compared to the One Step Ahead to see which model is more accurate with its predictions.
-![Actual Footage of you seeing the light at the end of the tunnel](https://raw.githubusercontent.com/learn-co-curriculum/dsc-capstone-project-v2/master/end-of-tunnel.gif)
+![lstm-graph](https://github.com/dvb2017/dsc-capstone-project-v2-onl01-dtsc-ft-052620/blob/master/charts/LSTM-graph.PNG)
 4. Compare Sectors - This graph shows the performance of each sector over the past year, with each index starting at 100.  Hovering over it makes all of the names appear from highest to lowest at that particular date. Easy to see which sectors are performing well and which ones are not.  
-![Actual Footage of you seeing the light at the end of the tunnel](https://raw.githubusercontent.com/learn-co-curriculum/dsc-capstone-project-v2/master/end-of-tunnel.gif)
+![sectors-graph](https://github.com/dvb2017/dsc-capstone-project-v2-onl01-dtsc-ft-052620/blob/master/charts/sectors_graph.png)
 5. One Step Ahead Forecast - Plots the selected stock, along with its one step ahead prediction and confidence interval. Can be compared to the LSTM to give an idea of which model makes the better predictions.  
-![Actual Footage of you seeing the light at the end of the tunnel](https://raw.githubusercontent.com/learn-co-curriculum/dsc-capstone-project-v2/master/end-of-tunnel.gif)
+![one-step](https://github.com/dvb2017/dsc-capstone-project-v2-onl01-dtsc-ft-052620/blob/master/charts/one-step.PNG)
 6. Yield vs. Stock Value - Plots the stock of your choice along with your choice of yield curve.  Makes it easy to see any potential relationships between stocks and yield spreads.  Also has a date slider at the bottom.  
-![Actual Footage of you seeing the light at the end of the tunnel](https://raw.githubusercontent.com/learn-co-curriculum/dsc-capstone-project-v2/master/end-of-tunnel.gif)
+![yield-stock](https://github.com/dvb2017/dsc-capstone-project-v2-onl01-dtsc-ft-052620/blob/master/charts/yieldvstock.PNG)
 7. Yield vs. Sector Value - Plots the sector index of your choice along with your choice of yield curve.  Makes it easy to see any potential relationships between sector averages and yield spreads.
-![Actual Footage of you seeing the light at the end of the tunnel](https://raw.githubusercontent.com/learn-co-curriculum/dsc-capstone-project-v2/master/end-of-tunnel.gif)
+![yield-sector](https://github.com/dvb2017/dsc-capstone-project-v2-onl01-dtsc-ft-052620/blob/master/charts/yieldvsector.PNG)
 
 ## Future Work
 
