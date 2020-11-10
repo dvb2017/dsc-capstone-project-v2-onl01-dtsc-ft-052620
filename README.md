@@ -1,4 +1,4 @@
-# Capstone Project 
+# Predicting and Visualizing Stock Data 
 
 ## Introduction
 
