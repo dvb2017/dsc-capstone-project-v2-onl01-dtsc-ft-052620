@@ -8,16 +8,16 @@
 
 ## Table of Contents
 
-- presentation.pdf - a pdf file containing the powerpoint slides
-- student.ipynb - Jupyter Notebook containing notated code
-- README.md - this file, serving as a directory
-- charts - a folder containing all of the charts generated
-- data - folder containing the following data
-- data/yield2020.tsv - .tsv file containing US Treasury yield data (2020)
-- data/yield2019.tsv - .tsv file containing US Treasury yield data (2019)
-- data/midcap_data.csv - main dataset exported from notebook
-- data/nasdaq_list.csv - dataset containing the NASDAQ stock symbols
-- data/nyse_list.csv - dataset containing the NYSE stock symbols 
+- `presentation.pdf` - a pdf file containing the powerpoint slides
+- `student.ipynb` - Jupyter Notebook containing notated code
+- `README.md` - this file, serving as a directory
+- `charts` - a folder containing all of the charts generated
+- `data` - folder containing the following data
+- `data/yield2020.tsv` - .tsv file containing US Treasury yield data (2020)
+- `data/yield2019.tsv` - .tsv file containing US Treasury yield data (2019)
+- `data/midcap_data.csv` - main dataset exported from notebook
+- `data/nasdaq_list.csv` - dataset containing the NASDAQ stock symbols
+- `data/nyse_list.csv` - dataset containing the NYSE stock symbols 
 
 ## The Datasets
 
