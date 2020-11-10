@@ -41,7 +41,7 @@ Since the main purpose behind this particular project was the interface itself, 
 
 ## Results - The Interface
 
-For a complete look at the final interface, it can be found at the bottom of the Jupyter Notebook.  Some images will be included here along with brief descriptions of the graphs and their purposes. 
+For a complete look at the final interface, it can be found at the bottom of the Jupyter Notebook.  Some images will be included here along with brief descriptions of the graphs and their purposes.  The first graph also includes the three drop-down boxes that compose the simple interface.
 
 1. Stock vs. Sector - On this graph you choose a sector, and the stocks associated with that sector can be chosen as well.  The stock value and sector index value are plotted, along with their 5-day predictions and confidence intervals. The sector value is scaled so that it has the same starting value as the stock.  There is a slider on the bottom to adjust the date range you would like to view.  Can be used to easily gauge whether a stock is outperforming its sector, as well as to see a 5-day prediction. 
 ![stockvsector](https://github.com/dvb2017/dsc-capstone-project-v2-onl01-dtsc-ft-052620/blob/master/charts/stockvsector.PNG)
